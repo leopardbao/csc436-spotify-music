@@ -1,0 +1,76 @@
+<div class="container">
+
+  <br>
+  <div class="jumbotron">
+    <h1 class="display-4">Spotify Music Search</h1>
+    
+    <hr class="my-4">
+    <p>Search the music you ❤ to hear.</p>
+    <p class="lead">
+        <input class="search-box" type="text" [(ngModel)]="query" (keydown.enter)="submit(query)">
+        <button class="btn btn-primary" (click)="submit(query)">Search</button>
+    </p>
+  </div>
+
+
+  <div class="row">
+    <div class="col-12">
+
+    </div>
+  </div>
+
+
+
+  <div *ngIf="results">
+    <div *ngIf="!results.length">
+
+      <div class="row">
+        <div class="col-12">
+          No result from the searching '{{ query }}'
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+
+    <div *ngIf="results.length">
+      <div class="row">
+        <div class="col-12">
+          <h2>Results</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3" *ngFor="let result of results">
+          <div class="card music-card">
+            <img class="card-img-top" src="{{ result.album.images[0].url }}" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-title">
+                <a [routerLink]="['/tracks', result.id]">
+                  {{ result.name }}
+                </a>
+              </p>
+              <hr>
+              <p class="card-text">
+                <h6 class="text-muted">
+                  <a [routerLink]="['/artists', result.artists[0].id]">
+                    {{ result.artists[0].name }}
+                  </a>
+                </h6>
+                <a [routerLink]="['/albums', result.album.id]">
+                  {{ result.album.name }}
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+</div>
